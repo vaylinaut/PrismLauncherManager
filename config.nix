@@ -1,10 +1,10 @@
 programs.prismLauncher = {
     enable = true;
 
-    # Pass your custom JDK-override package right here!
-    package = pkgs.prismlauncher.override {
-      jdks = [ mcsrPkgs.graalvm-21 ];
-    };
+    package = pkgs.prismlauncher.override { jdks = [ pkgs.jdk21 pkgs.jdk17 ]; };
+
+    # If you are using Uku's mcsr-nixos package, then I recommend that you use this:
+    # package = pkgs.prismlauncher.override { jdks = [ mcsrPkgs.graalvm-21 ]; };
 
     settings = {
       General = {
@@ -14,9 +14,14 @@ programs.prismLauncher = {
         AutomaticJavaSwitch = true;
         ConsoleFont = "JetBrainsMonoNL Nerd Font";
         ConsoleFontSize = 11;
-        Env = "{\"LD_PRELOAD\":\"/nix/store/7830mkmrlim6br3ndl9ldxf48xhycc0p-jemalloc-5.3.1/lib/libjemalloc.so.2\"}";
+
+        # Check out the linux-mcsr documentation if you would like to know about the performance benefits of jemalloc.
+        # Env = "{\"LD_PRELOAD\":\"${lib.getLib pkgs.jemalloc}/lib/libjemalloc.so.2\"}";
+
         MaxMemAlloc = 4096;
         MinMemAlloc = 256;
+
+        # If you don't use Waywall, make sure to comment out this line!
         WrapperCommand = "waywall wrap --";
       };
 
