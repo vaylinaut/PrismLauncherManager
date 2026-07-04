@@ -6,6 +6,8 @@ Check out your ~/.local/share/PrismLauncher/prismlauncher.cfg to see what option
 Let me know if you have any questions. I'm on Discord @vaylinaut.\
 If something breaks, then let me know. I will do my best to fix it.
 
+Check out config.nix to see how you can configure it.
+
 ```nix
 
 {
