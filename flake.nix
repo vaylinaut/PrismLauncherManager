@@ -6,11 +6,11 @@
   };
 
   outputs = { self, nixpkgs, ... }: {
-    # Clean public access layers exposed for consumers
+    # home manager
     nixosModules.prismLauncher = ./modules/nixos.nix;
     homeManagerModules.prismLauncher = ./modules/home-manager.nix;
 
-    # Default fallbacks to prevent errors if outputs are queried directly
+    # nixos
     nixosModules.default = self.nixosModules.prismLauncher;
     homeManagerModules.default = self.homeManagerModules.prismLauncher;
   };
