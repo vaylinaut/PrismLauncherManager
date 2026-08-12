@@ -1,33 +1,181 @@
-programs.prismLauncher = {
+{
+  pkgs,
+  config,
+  ...
+}:
+
+{
+  home.packages = [
+    config.programs.MCSR-Prismlauncher.package
+  ];
+
+  programs.MCSR-Prismlauncher = {
     enable = true;
 
-    package = pkgs.prismlauncher.override { jdks = [ pkgs.jdk21 pkgs.jdk17 ]; };
+    package = pkgs.prismlauncher.override {
+      jdks = [
+        pkgs.temurin-bin-8
+        pkgs.jdk25
+      ];
+      additionalPrograms = [ ];
+      additionalLibs = with pkgs; [
+        libXtst
+        libXext
+        libX11
+        libxkbcommon
+        libxcb
+        libxt
+        libxinerama
+        jemalloc
+      ];
+    };
 
-    # If you are using Uku's mcsr-nixos package, then I recommend that you use this:
-    # package = pkgs.prismlauncher.override { jdks = [ mcsrPkgs.graalvm-21 ]; };
+    config = {
+      general = {
+        instanceSorting = "Name";
+        instanceRenaming = "AskEverytime";
+        menuBar = false;
 
-    settings = {
-      General = {
-        ApplicationTheme = "dark";
-        AutoCloseConsole = false;
-        AutomaticJavaDownload = false;
-        AutomaticJavaSwitch = true;
-        ConsoleFont = "JetBrainsMonoNL Nerd Font";
-        ConsoleFontSize = 11;
+        instanceDirectory = "instances";
+        modsDirectory = "mods";
+        iconsDirectory = "icons";
+        javaDirectory = "java";
+        skinsDirectory = "skins";
 
-        # Check out the linux-mcsr documentation if you would like to know about the performance benefits of jemalloc.
-        # Env = "{\"LD_PRELOAD\":\"${lib.getLib pkgs.jemalloc}/lib/libjemalloc.so.2\"}";
+        modMetadata = true;
+        modDependencyAutoInstall = true;
+        detectModIncompatibility = false;
+        modpackUpdatePrompt = true;
 
-        MaxMemAlloc = 4096;
-        MinMemAlloc = 256;
+        logHistoryLimit = 100000;
 
-        # If you don't use Waywall, make sure to comment out this line!
-        WrapperCommand = "waywall wrap --";
+        concurrentTaskLimit = 8;
+        concurrentDownloadLimit = 6;
+        retryLimit = 1;
+        HTTPTimeout = 60;
       };
 
-      UI = {
-        "mods_Page\\ColumnsVisibility" =
-          "{\"Image\":true,\"Last Modified\":true,\"Loaders\":false,\"Minecraft Versions\":false,\"Pack Format\":true,\"Provider\":true,\"Release Type\":false,\"Required By\":false,\"Requires\":false,\"Side\":false,\"Size\":false,\"Version\":true}";
+      language.language = "en_US";
+
+      apperance = {
+        theme = "system";
+        icons = "flat";
+
+        consoleFont = "FiraCode Nerd Font";
+        consoleFontSize = 16;
+
+        backgroundCat = "rory";
+        catFit = "fill";
+        catOpacity = 100;
+      };
+
+      minecraft = {
+        general = {
+          maximize = false;
+          windowHeight = 480;
+          windowWidth = 854;
+          showConsole = false;
+          errorConsole = true;
+
+          showGameTime = true;
+          showGameTimeDays = true;
+          ShowGlobalGameTime = true;
+        };
+        tweaks = {
+          onlineFixes = false;
+          naitiveGLFW = true;
+          naitiveOpenAL = true;
+          feralGamemode = true;
+          mangoHUD = false;
+          discreteGPU = false;
+          zink = false;
+        };
+        customCommands = {
+          preLaunch = "";
+          wrapper = "waywall wrap --";
+          postExit = "";
+        };
+        environmentVariables = {
+          "LD_PRELOAD" = "${pkgs.jemalloc}/lib/libjemalloc.so";
+        };
+      };
+
+      java = {
+        executable = "${pkgs.temurin-bin-8}/bin/java";
+        javaCompatibilityCheck = true;
+        javaWizard = false;
+        detectJavaVersion = true;
+
+        minMemoryUsage = 256;
+        maxMemoryUsage = 4096;
+        permGenSize = 128;
+        lowMemoryWarning = true;
       };
     };
+
+    instances = {
+      "idkanymore" = {
+        settings = {
+          general = {
+            version = "1.16.1";
+            name = "marginal";
+          };
+
+          window = {
+            maximize = false;
+            windowHeight = 480;
+            windowWidth = 854;
+          };
+          console = {
+            showConsole = false;
+            errorConsole = true;
+          };
+          gameTime = {
+            showGameTime = true;
+          };
+          java = {
+            executable = "${pkgs.temurin-bin-8}/bin/java";
+            javaCompatibilityCheck = true;
+
+            minMemoryUsage = 256;
+            maxMemoryUsage = 4096;
+            permGenSize = 128;
+            lowMemoryWarning = true;
+          };
+          tweaks = {
+            onlineFixes = false;
+            naitiveGLFW = true;
+            naitiveOpenAL = true;
+            feralGamemode = true;
+            mangoHUD = false;
+            discreteGPU = false;
+            zink = false;
+          };
+          customCommands = {
+            preLaunch = "";
+            wrapper = "waywall wrap --";
+            postExit = "";
+          };
+          environmentVariables = {
+            "LD_PRELOAD" = "${pkgs.jemalloc}/lib/libjemalloc.so";
+          };
+        };
+      };
+    };
+    #       servers = {
+    #         "Vay's Awesome server" = {
+    #           url = "example.com";
+    #         };
+    #         "Bedwars practice" = {
+    #           url = "bedwarspractice.club";
+    #         };
+    #       };
+    #       mods = [
+
+    #       ];
+    #     };
+    #   };
+    # };
+    #
   };
+}
