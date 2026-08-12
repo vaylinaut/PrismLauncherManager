@@ -28,8 +28,7 @@ Check out config.nix to see how you can configure it.
     # Optional convenience alias
     homeManagerModule = self.homeManagerModules.prismLauncher;
 
-    # Provide a test configuration (optional but useful)
-    # Users can run: nix run github:you/prism-launcher#homeConfigurations.example
+    # You can run: nix run github:you/prism-launcher#homeConfigurations.example
     homeConfigurations.example = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
 
