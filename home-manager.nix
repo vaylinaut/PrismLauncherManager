@@ -99,27 +99,27 @@ in
         type = lib.types.str;
         default = "en_US";
       };
-      apperance.theme = lib.mkOption {
+      appearance.theme = lib.mkOption {
         type = lib.types.str;
         default = "system";
       };
-      apperance.icons = lib.mkOption {
+      appearance.icons = lib.mkOption {
         type = lib.types.str;
         default = "flat";
       };
-      apperance.consoleFont = lib.mkOption {
+      appearance.consoleFont = lib.mkOption {
         type = lib.types.str;
         default = "FiraCode Nerd Font";
       };
-      apperance.consoleFontSize = lib.mkOption {
+      appearance.consoleFontSize = lib.mkOption {
         type = lib.types.int;
         default = 16;
       };
-      apperance.backgroundCat = lib.mkOption {
+      appearance.backgroundCat = lib.mkOption {
         type = lib.types.str;
         default = "rory";
       };
-      apperance.catFit = lib.mkOption {
+      appearance.catFit = lib.mkOption {
         type = lib.types.enum [
           "fit"
           "fill"
@@ -127,7 +127,7 @@ in
         ];
         default = "fit";
       };
-      apperance.catOpacity = lib.mkOption {
+      appearance.catOpacity = lib.mkOption {
         type = lib.types.int;
         default = 50;
       };
@@ -439,13 +439,13 @@ in
           NumberOfManualRetries=${toString g.general.retryLimit}
           RequestTimeout=${toString g.general.HTTPTimeout}
           Language=${g.language.language}
-          ApplicationTheme=${g.apperance.theme}
-          IconTheme=${g.apperance.icons}
-          ConsoleFont=${g.apperance.consoleFont}
-          ConsoleFontSize=${toString g.apperance.consoleFontSize}
-          BackgroundCat=${g.apperance.backgroundCat}
-          CatFit=${g.apperance.catFit}
-          CatOpacity=${toString g.apperance.catOpacity}
+          ApplicationTheme=${g.appearance.theme}
+          IconTheme=${g.appearance.icons}
+          ConsoleFont=${g.appearance.consoleFont}
+          ConsoleFontSize=${toString g.appearance.consoleFontSize}
+          BackgroundCat=${g.appearance.backgroundCat}
+          CatFit=${g.appearance.catFit}
+          CatOpacity=${toString g.appearance.catOpacity}
           LaunchMaximized=${lib.boolToString g.minecraft.general.maximize}
           MinecraftWinHeight=${toString g.minecraft.general.windowHeight}
           MinecraftWinWidth=${toString g.minecraft.general.windowWidth}
