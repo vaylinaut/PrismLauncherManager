@@ -57,7 +57,7 @@
 
       language.language = "en_US";
 
-      apperance = {
+      appearance = {
         theme = "system";
         icons = "flat";
 
